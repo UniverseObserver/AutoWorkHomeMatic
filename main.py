@@ -127,4 +127,4 @@ submissions_texts = [ get_text_from_boxes(text_box, img) for (text_box, img) in 
 
 
 x = judge(answer_texts, submis_map, submissions_texts)
-x[0]
+x[0]    
