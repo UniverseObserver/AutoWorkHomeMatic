@@ -31,8 +31,8 @@ for boxes in boxes_to_print:
     [ draw_box(white_img, box)  for box in boxes]
     images_to_print.append(white_img)
     
-plt.imshow(images_to_print[0])
-cv2.imwrite("x.jpg", images_to_print[0])
+plt.imshow(images_to_print[1])
+cv2.imwrite("x.jpg", images_to_print[1])
 plt.show()
 
 #%%
@@ -52,8 +52,8 @@ plt.imshow(answer_img_fullsize)
 plt.show()
 
 
-draw_box(sumbissions_img_fullsize[0], boxes_to_print[0][0])
-plt.imshow(sumbissions_img_fullsize[0])
+draw_box(sumbissions_img_fullsize[1], boxes_to_print[1][5])
+plt.imshow(sumbissions_img_fullsize[1])
 plt.show()
 
 # print(answer_img.shape)
