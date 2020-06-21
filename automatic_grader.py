@@ -118,7 +118,7 @@ def grade(blank_dir, answer_dir, submissions_dir):
 
     blank_text_boxes, answer_text_boxes, submissions_text_boxes = \
         run_yolo(blank_img, answer_img, sumbissions_img, \
-        display_blank_img=True, display_answer_img=True, display_submis_img=False)
+        display_blank_img=True, display_answer_img=True, display_submis_img=True)
 
     submis_map = [ map_submission_to_answer(answer_text_boxes, submis_text_boxes) \
         for submis_text_boxes in submissions_text_boxes]
