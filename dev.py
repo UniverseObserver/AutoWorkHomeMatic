@@ -3,18 +3,18 @@ from yolo import *
 
 #%%
 blank_img = read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_blank.jpg")
-blank_img_CNN = img_2_CNNmode(blank_img)
+blank_img_CNN = img_CNNmode(blank_img)
 blank_text_coordi = predict_func(blank_img_CNN,intersec_over_union=0.12, display_img=True)
 print(len(blank_text_coordi))
 
 #%%
 answer_img = read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg")
-answer_img_CNN = img_2_CNNmode(answer_img)
+answer_img_CNN = img_CNNmode(answer_img)
 mask_questions(answer_img_CNN, blank_text_coordi)
 answer_text_boxes = predict_func(answer_img_CNN,intersec_over_union=0.12, display_img=True)
 #%%
 submission_img = read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_submission.jpg")
-submission_img_CNN = img_2_CNNmode(submission_img)
+submission_img_CNN = img_CNNmode(submission_img)
 mask_questions(submission_img_CNN, blank_text_coordi)
 submission_text_boxes = predict_func(submission_img_CNN,intersec_over_union=0.12, display_img=True)
 
@@ -31,18 +31,18 @@ print(submission_text_boxes[0])
 
 # print(len(answer_text_coordi))
 
-print(answer_text_boxes[0])
+# print(answer_text_boxes[0])
 
-for box in [answer_text_boxes[1]]:
-    draw_box(answer_img, box)
-    draw_box(submission_img, box)
+# for box in [answer_text_boxes[1]]:
+#     draw_box(answer_img, box)
+#     draw_box(submission_img, box)
 
-for box in [submission_text_boxes[0]]:
-    draw_box(submission_img, box)
+# for box in [submission_text_boxes[0]]:
+#     draw_box(submission_img, box)
 
-plt.imshow(answer_img)
-plt.imshow(submission_img)
-plt.show()
+# plt.imshow(answer_img)
+# plt.imshow(submission_img)
+# plt.show()
 
 #%%
 # STEP 3:
@@ -76,11 +76,6 @@ import pytesseract
 import cv2
 from PIL import Image, ImageEnhance, ImageFilter
 
-# img = (read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg"))
-# # img = img[0]
-# img = cv2.imread('/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg')
-# img = cv2.resize(img,(512,512))
-# submission_img
 
 answer_box = answer_text_boxes[         3   ] 
 submission_box = submission_text_boxes[ 5   ] 
@@ -101,6 +96,8 @@ print( pytesseract.image_to_string(sss) )
 
 
 
+
+# %%
 
 # %%
 img = cv2.imread('/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg')

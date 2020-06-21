@@ -65,7 +65,7 @@ def read_img(dir) :
     img = cv2.resize(img,(512,512))
     return img
     
-def img_2_CNNmode(img):
+def img_CNNmode(img):
     return np.expand_dims((img - 127.5)/127.5,axis= 0) 
 
 # def read_img(dir) :
