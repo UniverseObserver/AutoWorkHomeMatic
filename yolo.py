@@ -40,8 +40,8 @@ def draw_box(img, box):
 
 def predict_func(img_vector, intersec_over_union = INTERSEC_OVER_UNION, model=model, display_img=False, save_img=False, name='name'):
 
-    ans = model.predict(img_vector)
-    boxes = decode(ans[0] , yolo_width , yolo_height , intersec_over_union)
+    ans = model.predict(img_vector)                                                                                         
+    boxes = decode(ans[0] , yolo_width , yolo_height                                     , intersec_over_union)
 
     if (display_img or save_img):
         img = ((img_vector + 1)/2) # undo color change

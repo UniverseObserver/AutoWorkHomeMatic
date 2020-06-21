@@ -137,6 +137,10 @@ def grade(blank_dir, answer_dir, submissions_dir):
 
 #%%
 if __name__ == '__main__':
-    grade(blank_dir, answer_dir, submissions_dir)
+    blank_img, answer_img, sumbissions_img, \
+        blank_text_boxes, answer_text_boxes, submissions_text_boxes, \
+        answer_texts, submis_map, submissions_texts, result   = grade(blank_dir, answer_dir, submissions_dir)
+
+    print(result)
 
 # %%
