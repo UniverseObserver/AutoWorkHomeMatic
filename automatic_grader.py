@@ -10,8 +10,8 @@ from PIL import Image, ImageEnhance, ImageFilter
 #%%
 blank_dir = "./res/img/example1_blank.jpg"
 answer_dir = "./res/img/example1_answer.jpg"
-# submission_dir = "./res/img/example1_submission.jpg"
 submissions_dir = "./res/img/example1_submissions"
+# submission_dir = "./res/img/example1_submission.jpg"
 
 
 

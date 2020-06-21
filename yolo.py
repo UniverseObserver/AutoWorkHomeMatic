@@ -18,8 +18,8 @@ from keras.models import model_from_json
 import matplotlib.pyplot as plt
 import os
 
-img_width = 512
-img_height = 512
+yolo_width = 512
+yolo_height = 512
 MODEL_DIR = './res/yolo/model/text_detect_model.json'
 WEIGHTS_DIR = './res/yolo/model/text_detect_weights.h5'
 INTERSEC_OVER_UNION = 0.5
@@ -41,7 +41,7 @@ def draw_box(img, box):
 def predict_func(img_vector, intersec_over_union = INTERSEC_OVER_UNION, model=model, display_img=False, save_img=False, name='name'):
 
     ans = model.predict(img_vector)
-    boxes = decode(ans[0] , img_width , img_height , intersec_over_union)
+    boxes = decode(ans[0] , yolo_width , yolo_height , intersec_over_union)
 
     if (display_img or save_img):
         img = ((img_vector + 1)/2) # undo color change
