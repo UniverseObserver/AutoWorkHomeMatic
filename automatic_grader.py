@@ -8,9 +8,7 @@ import cv2
 from PIL import Image, ImageEnhance, ImageFilter
 
 #%%
-blank_dir = "./res/img/example1_blank.jpg"
-answer_dir = "./res/img/example1_answer.jpg"
-submissions_dir = "./res/img/example1_submissions"
+
 # submission_dir = "./res/img/example1_submission.jpg"
 
 
@@ -114,11 +112,11 @@ def grade(blank_dir, answer_dir, submissions_dir):
 
     blank_img, answer_img, sumbissions_img = \
         get_images(blank_dir, answer_dir, submissions_dir, display_blank_img=False,\
-        display_answer_img=False, display_submis_img=False, print_submis_name=True)
+        display_answer_img=False, display_submis_img=False, print_submis_name=False)
 
     blank_text_boxes, answer_text_boxes, submissions_text_boxes = \
         run_yolo(blank_img, answer_img, sumbissions_img, \
-        display_blank_img=True, display_answer_img=True, display_submis_img=True)
+        display_blank_img=False, display_answer_img=False, display_submis_img=False)
 
     submis_map = [ map_submission_to_answer(answer_text_boxes, submis_text_boxes) \
         for submis_text_boxes in submissions_text_boxes]
@@ -137,6 +135,11 @@ def grade(blank_dir, answer_dir, submissions_dir):
 
 #%%
 if __name__ == '__main__':
+    
+    blank_dir = "./res/img/example1_blank.jpg"
+    answer_dir = "./res/img/example1_answer.jpg"
+    submissions_dir = "./res/img/example1_submissions"
+
     blank_img, answer_img, sumbissions_img, \
         blank_text_boxes, answer_text_boxes, submissions_text_boxes, \
         answer_texts, submis_map, submissions_texts, result   = grade(blank_dir, answer_dir, submissions_dir)
