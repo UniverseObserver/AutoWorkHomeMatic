@@ -68,20 +68,6 @@ def read_img(dir) :
 def img_CNNmode(img):
     return np.expand_dims((img - 127.5)/127.5,axis= 0) 
 
-# def read_img(dir) :
-#     img = cv2.imread(dir)
-#     #img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
-#     img = cv2.resize(img,(512,512))
-#     img = (img - 127.5)/127.5
-#     return img
-    
-# def img_2_vector(dir):
-#     img = cv2.imread(dir)
-#     img = cv2.resize(img,(512,512))
-#     img = (img - 127.5)/127.5
-#     return np.expand_dims(img,axis= 0) 
-
-
 def mask_questions(img , qs_coordi) :
     for i in qs_coordi:
         i = [int(x) for x in i]
