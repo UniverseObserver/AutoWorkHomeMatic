@@ -45,7 +45,7 @@ def decode_to_boxes(output , ht , wd):
 
 
 
-def iou(box1,box2):
+def insertion_over_union(box1,box2):
 
     x1 = max(box1[0],box2[0])
     x2 = min(box1[2],box2[2])
@@ -58,9 +58,9 @@ def iou(box1,box2):
     area2 = (box2[2] - box2[0])*(box2[3] - box2[1])
     fin_area = area1 + area2 - inter
         
-    iou = inter/fin_area
+    insertion_over_union = inter/fin_area
     
-    return iou
+    return insertion_over_union
 
 
 
@@ -80,7 +80,7 @@ def non_max(boxes , scores , iou_num):
         iou_res = []
     
         for i in scores_sort:
-            iou_res.append(iou(boxes[index] , boxes[i]))
+            iou_res.append(insertion_over_union(boxes[index] , boxes[i]))
         
         iou_res = np.array(iou_res)
         filtered_indexes = set((iou_res > iou_num).nonzero()[0])

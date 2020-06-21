@@ -98,9 +98,31 @@ mask_questions(submission_img, blank_text_coordi)
 submission_text_coordi = predict_func(submission_img,intersec_over_union=0.12, display_img=True)
 
 #%%
-print(len(answer_text_coordi))
+# print(len(answer_text_coordi))
+print(answer_text_coordi[0])
+
+img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg"))
+img = img[0]
+for i in [answer_text_coordi[1]]:
+    i = [int(x) for x in i]
+    img = cv2.rectangle(img , (i[0] ,i[1]) , (i[2] , i[3]) , color = (0,255,0) , thickness = 2)
+plt.imshow(img)
+plt.show()
 
 
+# print(submission_text_coordi[0])
+
+# img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_submission.jpg"))
+# img = img[0]
+for i in [submission_text_coordi[0]]:
+    i = [int(x) for x in i]
+    img = cv2.rectangle(img , (i[0] ,i[1]) , (i[2] , i[3]) , color = (0,255,0) , thickness = 2)
+plt.imshow(img)
+plt.show()
+# print(submission_text_coordi[0])
+
+print(insertion_over_union(answer_text_coordi[0], submission_text_coordi[1]))
+# 
 
 
 
