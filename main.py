@@ -36,6 +36,7 @@ cv2.imwrite("x.jpg", images_to_print[0])
 plt.show()
 
 #%%
+print(answer_img_fullsize.shape)
 # [ draw_box(sumbissions_img_fullsize[0], box)  for box in boxes_to_print[0]]
     
 # plt.imshow(sumbissions_img_fullsize[0])
