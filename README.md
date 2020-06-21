@@ -5,20 +5,21 @@ teachers to mark questions with specified answers, like multiple choice, with a
 scanner and a printer.  
 
 This project is not completed and even the demo worksheet cannot be marked properly, 
-since a pre-trained network for generic text detection is used here and no 
-specialization have been done, due to time constrains and inadequacy of 
-training datasets. However, it develops the concept that a teacher's work can be 
-partially relieved with electronics, and it may also serve as a framework and will 
-make great use as soon as proper networks are trained. 
+since [a pre-trained network for generic text detection](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow)
+is used here and no specialization have been done, due to time constrains and 
+inadequacy of training datasets. However, it develops the concept that a teacher's 
+work can be partially relieved with electronics, and it may also serve as a 
+framework and will make great use as soon as proper networks are trained. 
+
+
 
 ## How it works
 
 1. Using a scanner, fetch digital copies of a blank version of a worksheet, an
 answer key, and all submissions from students. 
 
-2. Scan through the blank worksheet with a 
-[text detecting YOLO network](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow)
-to find out where are the questions. 
+2. Scan through the blank worksheet with a text detecting YOLO network to find out 
+where are the questions. 
 
 <img src="./res/img/img0.png" width="800"/>
 
