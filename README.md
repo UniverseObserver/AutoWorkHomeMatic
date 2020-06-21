@@ -20,6 +20,9 @@ answer key, and all submissions from students.
 [text detecting YOLO network](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow)
 to find out where are the questions. 
 
+![x](./res/img/img0.png)
+
+
 2. Cover questions on the answer sheet and submissions by drawing solid rectangle on
 it, then scan them with the aforementioned YOLO network to get the positions of 
 remaining texts. 
@@ -41,7 +44,7 @@ marking.
 ## Get Started
 
 ### Download pre-trained model
-The pre-trained weights should be located under .res/yolo/model. Download it manually either from [this github page](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow), 
+The pre-trained weights `text_detect_weights.h5` should be located under .res/yolo/model. Download it manually either from [this github page](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow), 
 or you can find it in the releases of this repository.
 
 ### Install requirements 
