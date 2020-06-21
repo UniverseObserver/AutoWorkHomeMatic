@@ -17,11 +17,9 @@ def scale_boxes_to_real_size(box, new_height, new_width, old_height=yolo.yolo_he
 
 blank_img, answer_img, sumbissions_img, \
     blank_text_boxes, answer_text_boxes, submissions_text_boxes, \
-    answer_texts, submis_map, submissions_texts, result \
+    answer_texts, submis_map, submissions_texts, results \
     = grade(blank_dir, answer_dir, submissions_dir)
 
-
-#%%
 blank_img_fullsize = cv2.imread(blank_dir)
 answer_img_fullsize = cv2.imread(answer_dir)
 
@@ -34,6 +32,7 @@ height, width, _ = answer_img_fullsize.shape
 
 
 #%%
+# draw boxes
 boxes_to_print = []
 
 for boxes in submissions_text_boxes:
@@ -50,6 +49,7 @@ for boxes, submis_img_fullsize in zip(boxes_to_print, submissions_img_fullsize):
     [ draw_box(submis_img_fullsize, box)  for box in boxes]
 
 #%%
+# write files
 
 # os.mkdir(output_to_print_dir)
 # os.mkdir(output_verify)
@@ -62,7 +62,44 @@ for img, index in zip(submissions_img_fullsize,range(len(images_to_print))):
     cv2.imwrite( "{}/{}.jpg".format(output_verify, index) , img)
 
 
+
 #%%
+
+font                   = cv2.FONT_HERSHEY_SIMPLEX
+fontScale              = 0.5
+fontColor              = (0,0,0)
+lineType               = 2
+
+for boxes, submis_img_fullsize, result in zip(boxes_to_print, submissions_img_fullsize, results):
+    for box,res in zip(boxes, result):
+        bottomLeftCornerOfText = (int(box[0])+2,int(box[3])-2)
+        cv2.putText(submis_img_fullsize,
+            'CORRECT' if result else 'WRONG', 
+            bottomLeftCornerOfText, 
+            font, 
+            fontScale,
+            fontColor,
+            lineType)
+
+plt.imshow(submissions_img_fullsize[0])
+plt.show()
+cv2.imwrite("xx.jpg", submissions_img_fullsize[0])
+# print(boxes_to_print[0][0])
+
+# %%
+print(results)
+#%%
+
+
+
+
+
+
+
+
+
+
+
 
 
 
