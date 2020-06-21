@@ -17,7 +17,7 @@ def scale_boxes_to_real_size(box, new_height, new_width, old_height=yolo.yolo_he
 
 blank_img, answer_img, sumbissions_img, \
     blank_text_boxes, answer_text_boxes, submissions_text_boxes, \
-    answer_texts, submis_map, submissions_texts, results \
+    answer_texts, submis_maps, submissions_texts, results \
     = grade(blank_dir, answer_dir, submissions_dir)
 
 blank_img_fullsize = cv2.imread(blank_dir)
@@ -28,7 +28,7 @@ for item_dir in os.listdir(submissions_dir):
     img = cv2.imread(submissions_dir + "/" + item_dir )
     submissions_img_fullsize.append(img)
 
-height, width, _ = answer_img_fullsize.shape
+height, width, _ = submissions_img_fullsize[0].shape
 
 
 #%%
@@ -48,6 +48,32 @@ for boxes in boxes_to_print:
 for boxes, submis_img_fullsize in zip(boxes_to_print, submissions_img_fullsize):
     [ draw_box(submis_img_fullsize, box)  for box in boxes]
 
+
+#%%
+# print correct / wrong
+
+font                   = cv2.FONT_HERSHEY_SIMPLEX
+fontScale              = 0.5
+fontColor              = (0,0,0)
+lineType               = 2
+
+for boxes, blank_img, submis_img_fullsize, result, submis_map in zip(boxes_to_print, images_to_print, submissions_img_fullsize, results, submis_maps):
+    for (box,index) in zip(boxes, range(len(boxes))):
+        bottomLeftCornerOfText = (int(box[0])+2,int(box[3])-2)
+        text = 'CORRECT' if result[submis_map[index]] else 'WRONG'
+
+        cv2.putText(submis_img_fullsize,
+            text, bottomLeftCornerOfText, font, fontScale, fontColor, lineType)
+
+        cv2.putText(blank_img,
+            text, bottomLeftCornerOfText, font, fontScale, fontColor, lineType)
+
+# plt.imshow(submissions_img_fullsize[0])
+# plt.show()
+# cv2.imwrite("xx.jpg", submissions_img_fullsize[0])
+# print(boxes_to_print[0][0])
+
+
 #%%
 # write files
 
@@ -63,31 +89,31 @@ for img, index in zip(submissions_img_fullsize,range(len(images_to_print))):
 
 
 
-#%%
 
-font                   = cv2.FONT_HERSHEY_SIMPLEX
-fontScale              = 0.5
-fontColor              = (0,0,0)
-lineType               = 2
 
-for boxes, submis_img_fullsize, result in zip(boxes_to_print, submissions_img_fullsize, results):
-    for box,res in zip(boxes, result):
-        bottomLeftCornerOfText = (int(box[0])+2,int(box[3])-2)
-        cv2.putText(submis_img_fullsize,
-            'CORRECT' if result else 'WRONG', 
-            bottomLeftCornerOfText, 
-            font, 
-            fontScale,
-            fontColor,
-            lineType)
 
-plt.imshow(submissions_img_fullsize[0])
-plt.show()
-cv2.imwrite("xx.jpg", submissions_img_fullsize[0])
-# print(boxes_to_print[0][0])
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 # %%
 print(results)
+print(submis_maps[0])
 #%%
 
 

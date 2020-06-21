@@ -137,15 +137,10 @@ def print_a_answer(grade_result, submission_index, question_index ):
 # %%
 from automatic_grader import *
 x = grade(blank_dir, answer_dir, submissions_dir)
-print_a_answer(x,1,3)
-
-
-
-
-
 
 
 # %%
+print_a_answer(x,1,3)
 
 # %%
 
