@@ -1,3 +1,5 @@
+# ignore tar
+*.tar
 # ignore h5 model
 *.h5
 

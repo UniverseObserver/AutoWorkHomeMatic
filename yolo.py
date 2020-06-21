@@ -34,6 +34,10 @@ def load_model(strr):
 model = load_model(MODEL_DIR)
 model.load_weights(WEIGHTS_DIR)
 
+def draw_box(img, box):
+    box = [int(x) for x in box]
+    img = cv2.rectangle(img , (box[0] ,box[1]) , (box[2] , box[3]) , color = (0,0,0) , thickness = 2)
+
 def predict_func(img_vector, intersec_over_union = INTERSEC_OVER_UNION, model=model, display_img=False, save_img=False, name='name'):
 
     ans = model.predict(img_vector)
@@ -41,12 +45,11 @@ def predict_func(img_vector, intersec_over_union = INTERSEC_OVER_UNION, model=mo
 
     if (display_img or save_img):
         img = ((img_vector + 1)/2) # undo color change
-        img = img[0]
+        img = img[0] # convert from CNN mode to draw mode
 
     if (display_img):
-        for i in boxes:
-            i = [int(x) for x in i]
-            img = cv2.rectangle(img , (i[0] ,i[1]) , (i[2] , i[3]) , color = (0,255,0) , thickness = 2)
+        for box in boxes:
+            draw_box(img, box)
         plt.imshow(img)
         plt.show()
     
@@ -59,93 +62,27 @@ def predict_func(img_vector, intersec_over_union = INTERSEC_OVER_UNION, model=mo
 
 def read_img(dir) :
     img = cv2.imread(dir)
-    #img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
     img = cv2.resize(img,(512,512))
-    img = (img - 127.5)/127.5
     return img
     
-def img_2_vector(img):
-    return np.expand_dims(img,axis= 0) 
+def img_2_CNNmode(img):
+    return np.expand_dims((img - 127.5)/127.5,axis= 0) 
+
+# def read_img(dir) :
+#     img = cv2.imread(dir)
+#     #img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+#     img = cv2.resize(img,(512,512))
+#     img = (img - 127.5)/127.5
+#     return img
+    
+# def img_2_vector(dir):
+#     img = cv2.imread(dir)
+#     img = cv2.resize(img,(512,512))
+#     img = (img - 127.5)/127.5
+#     return np.expand_dims(img,axis= 0) 
 
 
-#%%
-
-# if __name__ == "__main__":
-    # # img = cv2.imread("/home/aoiduo/x/res/IMG_20200621_031940.jpg")
-    # img = cv2.imread("./res/img/2.jpg")
-
-    # img = cv2.resize(img,(512,512))
-    # img = (img - 127.5)/127.5
-    # # plt.imshow(img)
-    # x = predict_func(np.expand_dims(img,axis= 0) , intersec_over_union=INTERSEC_OVER_UNION, model=model)
-    # print(x)
-blank_img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_blank.jpg"))
-blank_text_coordi = predict_func(blank_img,intersec_over_union=0.12, display_img=True)
-print(len(blank_text_coordi))
-
-#%%
 def mask_questions(img , qs_coordi) :
     for i in qs_coordi:
         i = [int(x) for x in i]
         img[0] = cv2.rectangle(img[0] , (i[0] ,i[1]) , (i[2] , i[3]) , (255,0,0) , -1)
-#%%
-answer_img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg"))
-mask_questions(answer_img, blank_text_coordi)
-answer_text_coordi = predict_func(answer_img,intersec_over_union=0.12, display_img=True)
-#%%
-submission_img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_submission.jpg"))
-mask_questions(submission_img, blank_text_coordi)
-submission_text_coordi = predict_func(submission_img,intersec_over_union=0.12, display_img=True)
-
-#%%
-# print(len(answer_text_coordi))
-print(answer_text_coordi[0])
-
-img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg"))
-img = img[0]
-for i in [answer_text_coordi[1]]:
-    i = [int(x) for x in i]
-    img = cv2.rectangle(img , (i[0] ,i[1]) , (i[2] , i[3]) , color = (0,255,0) , thickness = 2)
-plt.imshow(img)
-plt.show()
-
-
-# print(submission_text_coordi[0])
-
-# img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_submission.jpg"))
-# img = img[0]
-for i in [submission_text_coordi[0]]:
-    i = [int(x) for x in i]
-    img = cv2.rectangle(img , (i[0] ,i[1]) , (i[2] , i[3]) , color = (0,255,0) , thickness = 2)
-plt.imshow(img)
-plt.show()
-# print(submission_text_coordi[0])
-
-print(insertion_over_union(answer_text_coordi[0], submission_text_coordi[1]))
-# 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# %%
-# from PIL import Image, ImageEnhance, ImageFilter
-# from matplotlib.pyplot import imshow
-# img = Image.open("/home/aoiduo/AutoWorkHomeMatic/res/img/example0_blank.jpg") 
-# img = img.rotate(270)
-# # img.save('/home/aoiduo/AutoWorkHomeMatic/res/img/example0_blank.jpg')
-
-# imshow(np.asarray(img))
