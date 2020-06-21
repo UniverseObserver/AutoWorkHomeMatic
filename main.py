@@ -16,7 +16,7 @@ submissions_dir = "./res/img/example1_submissions"
 
 
 #%%
-# Step 2
+# Step 1, 2
 
 def get_images(blank_dir, answer_dir, submissions_dir, display_blank_img=False, display_answer_img=False, display_submis_img=False, print_submis_name=False):
     blank_img = read_img(blank_dir)
@@ -59,6 +59,7 @@ def run_yolo(blank_img, answer_img, submissions_img, display_blank_img=False, di
         
     return blank_text_boxes, answer_text_boxes, submissions_text_boxes
 
+
 #%%
 # Step 3
 def map_submission_to_answer(answer_text_boxes, submission_text_boxes): 
@@ -79,6 +80,7 @@ def map_submission_to_answer(answer_text_boxes, submission_text_boxes):
         submission_indexes.append( np.argmax(ious) )
     return submission_indexes
 
+
 #%%
 # Step 4
 def get_text_from_boxes(text_boxes, img):
@@ -89,8 +91,21 @@ def get_text_from_boxes(text_boxes, img):
         ret.append(pytesseract.image_to_string(textblock_img))
     return ret
 
-def judge(answer_text, submis_text):
-    pass
+
+def is_correct(ans, submis):
+    return ans == submis
+
+
+def judge(answer_texts, submissions_map, submissions_texts):
+    all_result = []
+    for submis_text, submis_map in zip(submissions_texts, submissions_map) :
+        result = []
+        # for ith item in answer_texts, compare it with submix_text[submis_map[i]]
+        for i in range(len(submis_text)):
+            result.append(is_correct(answer_texts[i], submis_text[submis_map[i]]))
+        all_result.append(result)
+    return all_result
+
 
 #%%
 blank_img, answer_img, sumbissions_img = get_images(blank_dir, answer_dir, submissions_dir, display_blank_img=False, display_answer_img=False, display_submis_img=False, print_submis_name=True)
@@ -98,23 +113,18 @@ blank_text_boxes, answer_text_boxes, submissions_text_boxes = run_yolo(blank_img
 
 #%%
 submis_map = [ map_submission_to_answer(answer_text_boxes, submis_text_boxes) for submis_text_boxes in submissions_text_boxes]
-print(submis_map)
+# print(submis_map)
 
 #%%
-
 answer_texts = get_text_from_boxes(answer_text_boxes, answer_img)
 submissions_texts = [ get_text_from_boxes(text_box, img) for (text_box, img) in zip (submissions_text_boxes, sumbissions_img) ]
 
-print("Answer:")
-print(answer_texts)
-print("")
-print("Submission:")
-print(submissions_texts)
+# print("Answer:")
+# print(answer_texts)
+# print("")
+# print("Submission:")
+# print(submissions_texts)
 
 
-#%%
-def judge(answer_text, submis_map, submissions_texts):
-    for submis_text in submissions_texts:
-
-        pass
-    pass
+x = judge(answer_texts, submis_map, submissions_texts)
+x[0]

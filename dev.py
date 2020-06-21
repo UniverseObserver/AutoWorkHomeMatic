@@ -77,8 +77,8 @@ import cv2
 from PIL import Image, ImageEnhance, ImageFilter
 
 
-answer_box = answer_text_boxes[         3   ] 
-submission_box = submission_text_boxes[ 5   ] 
+answer_box = answer_text_boxes[         5   ] 
+submission_box = submission_text_boxes[ 4   ] 
 print(answer_box)
 
 answer = answer_img[ int(answer_box[1]):int(answer_box[3]), int(answer_box[0]):int(answer_box[2]) ]
