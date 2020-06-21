@@ -1,4 +1,4 @@
-# %%
+#%%
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -23,7 +23,7 @@ img_height = 512
 MODEL_DIR = './res/yolo/model/text_detect_model.json'
 WEIGHTS_DIR = './res/yolo/model/text_detect_weights.h5'
 INTERSEC_OVER_UNION = 0.5
-# %%
+
 def load_model(strr):        
     json_file = open(strr, 'r')
     loaded_model_json = json_file.read()
@@ -31,12 +31,10 @@ def load_model(strr):
     loaded_model = model_from_json(loaded_model_json)
     return loaded_model
 
-# %%
 model = load_model(MODEL_DIR)
 model.load_weights(WEIGHTS_DIR)
 
-# %%
-def predict_func(model, img_vector, intersec_over_union, display_img=False, save_img=False, name='name'):
+def predict_func(img_vector, intersec_over_union = INTERSEC_OVER_UNION, model=model, display_img=False, save_img=False, name='name'):
 
     ans = model.predict(img_vector)
     boxes = decode(ans[0] , img_width , img_height , intersec_over_union)
@@ -59,15 +57,73 @@ def predict_func(model, img_vector, intersec_over_union, display_img=False, save
     return boxes
 
 
+def read_img(dir) :
+    img = cv2.imread(dir)
+    #img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    img = cv2.resize(img,(512,512))
+    img = (img - 127.5)/127.5
+    return img
+    
+def img_2_vector(img):
+    return np.expand_dims(img,axis= 0) 
+
+
+#%%
+
+# if __name__ == "__main__":
+    # # img = cv2.imread("/home/aoiduo/x/res/IMG_20200621_031940.jpg")
+    # img = cv2.imread("./res/img/2.jpg")
+
+    # img = cv2.resize(img,(512,512))
+    # img = (img - 127.5)/127.5
+    # # plt.imshow(img)
+    # x = predict_func(np.expand_dims(img,axis= 0) , intersec_over_union=INTERSEC_OVER_UNION, model=model)
+    # print(x)
+blank_img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_blank.jpg"))
+blank_text_coordi = predict_func(blank_img,intersec_over_union=0.12, display_img=True)
+print(len(blank_text_coordi))
+
+#%%
+def mask_questions(img , qs_coordi) :
+    for i in qs_coordi:
+        i = [int(x) for x in i]
+        img[0] = cv2.rectangle(img[0] , (i[0] ,i[1]) , (i[2] , i[3]) , (255,0,0) , -1)
+#%%
+answer_img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_answer.jpg"))
+mask_questions(answer_img, blank_text_coordi)
+answer_text_coordi = predict_func(answer_img,intersec_over_union=0.12, display_img=True)
+#%%
+submission_img = img_2_vector(read_img("/home/aoiduo/AutoWorkHomeMatic/res/img/example1_submission.jpg"))
+mask_questions(submission_img, blank_text_coordi)
+submission_text_coordi = predict_func(submission_img,intersec_over_union=0.12, display_img=True)
+
+#%%
+print(len(answer_text_coordi))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # %%
-# img = cv2.imread("/home/aoiduo/x/res/IMG_20200621_031940.jpg")
-img = cv2.imread("./res/img/2.jpg")
-# img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+# from PIL import Image, ImageEnhance, ImageFilter
+# from matplotlib.pyplot import imshow
+# img = Image.open("/home/aoiduo/AutoWorkHomeMatic/res/img/example0_blank.jpg") 
+# img = img.rotate(270)
+# # img.save('/home/aoiduo/AutoWorkHomeMatic/res/img/example0_blank.jpg')
 
-img = cv2.resize(img,(512,512))
-img = (img - 127.5)/127.5
-# plt.imshow(img)
-x = predict_func(model , np.expand_dims(img,axis= 0) , INTERSEC_OVER_UNION)
-print(x)
-
-
+# imshow(np.asarray(img))
