@@ -20,12 +20,13 @@ answer key, and all submissions from students.
 [text detecting YOLO network](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow)
 to find out where are the questions. 
 
-![x](./res/img/img0.png)
-
+![](./res/img/img0.png)
 
 2. Cover questions on the answer sheet and submissions by drawing solid rectangle on
 it, then scan them with the aforementioned YOLO network to get the positions of 
 remaining texts. 
+
+![](./res/img/img1.png)
 
 3. A piece of text found on answer sheet and another piece of text found on a 
 submission sheet are answers for the same question, if they are about at the same
@@ -37,8 +38,12 @@ answer shall be considered as correct, else mark it as wrong. A “cannot determ
 mode may also be added in the future, depending on specified requirements from 
 schools. 
 
+![](./res/img/img3.png)
+
 5. Encode previous outputs as image file and then instruct a printer to perform 
 marking. 
+
+![](./res/img/img4.png)
 
 
 ## Get Started
