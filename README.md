@@ -60,3 +60,6 @@ or you can find it in the releases of this repository.
 ### Run demo
 Run `python3 main.py`.
 Then images are generated under `./res/img/example1_out` and `./res/img/example1_verify`, where the formmer shall be printed on the submissions, while the latter serves as previews for printing. 
+
+## Credit
+[Text Detection using Yolo Algorithm in keras tensorflow](https://github.com/Neerajj9/Text-Detection-using-Yolo-Algorithm-in-keras-tensorflow) from [Neerajj9](https://github.com/Neerajj9)
