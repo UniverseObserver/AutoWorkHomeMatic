@@ -138,3 +138,5 @@ def grade(blank_dir, answer_dir, submissions_dir):
 #%%
 if __name__ == '__main__':
     grade(blank_dir, answer_dir, submissions_dir)
+
+# %%
